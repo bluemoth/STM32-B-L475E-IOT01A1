@@ -29,8 +29,8 @@
  * LED2 (green) is configured under PB14 GPIO
  *
  * Instructions for GPIO/LED blink
- * AHB2 base - 0x48000000
- * AHB2_ENR - 0x4800004C
+ * AHB2 base - 0x4002 4400
+ * AHB2_ENR offset - 0x4C
  * GPIOB base reg 0x4800 0400 + offset 0x00 for mode
  * Configure mode reg (bits 28/29) set to 01
  * configure output mode (offset 0x14 / OD14)
@@ -41,16 +41,16 @@
 int main(void)
 {
 
-	uint32_t *RCC_AHB2ENR = (uint32_t*)0x4800004C;
+	uint32_t *RCC_AHB2ENR = (uint32_t*)0x4002104C;
 	uint32_t *pPortBModeReg = (uint32_t*)0x48000400;
-	uint32_t *pPortBOutReg = (uint32_t*)0x48000014;
+	uint32_t *pPortBOutReg = (uint32_t*)0x48000414;
 
-	*RCC_AHB2ENR |= 0x00000002; //enable clock
+	*RCC_AHB2ENR |= 0x02; //enable clock
 
-	*pPortBModeReg &= 0x0FFFFFFF; //config mode reg, clear 28/29 bits
-	*pPortBModeReg |= 0x1000; //set 28th bit
+	*pPortBModeReg &= 0xCFFFFFFF; //config mode reg, clear 28/29 bits
+	*pPortBModeReg |= 0x10000000; //set 28th bit
 
-	*pPortBOutReg |= 0x400;
+	*pPortBOutReg |= 0x4000;
 
 
 	while (1);

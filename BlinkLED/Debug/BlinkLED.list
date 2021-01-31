@@ -87,49 +87,49 @@ int main(void)
  80001ca:	b085      	sub	sp, #20
  80001cc:	af00      	add	r7, sp, #0
 
-	uint32_t *RCC_AHB2ENR = (uint32_t*)0x4800004C;
+	uint32_t *RCC_AHB2ENR = (uint32_t*)0x4002104C;
  80001ce:	4b0f      	ldr	r3, [pc, #60]	; (800020c <main+0x44>)
  80001d0:	60fb      	str	r3, [r7, #12]
 	uint32_t *pPortBModeReg = (uint32_t*)0x48000400;
  80001d2:	4b0f      	ldr	r3, [pc, #60]	; (8000210 <main+0x48>)
  80001d4:	60bb      	str	r3, [r7, #8]
-	uint32_t *pPortBOutReg = (uint32_t*)0x48000014;
+	uint32_t *pPortBOutReg = (uint32_t*)0x48000414;
  80001d6:	4b0f      	ldr	r3, [pc, #60]	; (8000214 <main+0x4c>)
  80001d8:	607b      	str	r3, [r7, #4]
 
-	*RCC_AHB2ENR |= 0x00000002; //enable clock
+	*RCC_AHB2ENR |= 0x02; //enable clock
  80001da:	68fb      	ldr	r3, [r7, #12]
  80001dc:	681b      	ldr	r3, [r3, #0]
  80001de:	f043 0202 	orr.w	r2, r3, #2
  80001e2:	68fb      	ldr	r3, [r7, #12]
  80001e4:	601a      	str	r2, [r3, #0]
 
-	*pPortBModeReg &= 0x0FFFFFFF; //config mode reg, clear 28/29 bits
+	*pPortBModeReg &= 0xCFFFFFFF; //config mode reg, clear 28/29 bits
  80001e6:	68bb      	ldr	r3, [r7, #8]
  80001e8:	681b      	ldr	r3, [r3, #0]
- 80001ea:	f023 4270 	bic.w	r2, r3, #4026531840	; 0xf0000000
+ 80001ea:	f023 5240 	bic.w	r2, r3, #805306368	; 0x30000000
  80001ee:	68bb      	ldr	r3, [r7, #8]
  80001f0:	601a      	str	r2, [r3, #0]
-	*pPortBModeReg |= 0x1000; //set 28th bit
+	*pPortBModeReg |= 0x10000000; //set 28th bit
  80001f2:	68bb      	ldr	r3, [r7, #8]
  80001f4:	681b      	ldr	r3, [r3, #0]
- 80001f6:	f443 5280 	orr.w	r2, r3, #4096	; 0x1000
+ 80001f6:	f043 5280 	orr.w	r2, r3, #268435456	; 0x10000000
  80001fa:	68bb      	ldr	r3, [r7, #8]
  80001fc:	601a      	str	r2, [r3, #0]
 
-	*pPortBOutReg |= 0x400;
+	*pPortBOutReg |= 0x4000;
  80001fe:	687b      	ldr	r3, [r7, #4]
  8000200:	681b      	ldr	r3, [r3, #0]
- 8000202:	f443 6280 	orr.w	r2, r3, #1024	; 0x400
+ 8000202:	f443 4280 	orr.w	r2, r3, #16384	; 0x4000
  8000206:	687b      	ldr	r3, [r7, #4]
  8000208:	601a      	str	r2, [r3, #0]
 
 
 	while (1);
  800020a:	e7fe      	b.n	800020a <main+0x42>
- 800020c:	4800004c 	.word	0x4800004c
+ 800020c:	4002104c 	.word	0x4002104c
  8000210:	48000400 	.word	0x48000400
- 8000214:	48000014 	.word	0x48000014
+ 8000214:	48000414 	.word	0x48000414
 
 08000218 <Reset_Handler>:
 
